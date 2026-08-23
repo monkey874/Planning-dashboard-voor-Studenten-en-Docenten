@@ -1,0 +1,82 @@
+issues:
+  - title: "Dashboard: Activiteitenoverzicht tonen"
+    body: "Implementeer een Schiphol-stijl dashboard dat alle activiteiten toont, gesorteerd op datum en starttijd. Het overzicht moet duidelijk, actueel en automatisch verversen."
+    labels: ["epic:dashboard", "priority:must-have", "type:frontend"]
+
+  - title: "Dashboard: Automatische realtime updates"
+    body: "Zorg dat het dashboard automatisch ververst via polling of WebSockets/SignalR zodat studenten altijd actuele informatie zien."
+    labels: ["epic:dashboard", "priority:must-have", "type:backend"]
+
+  - title: "Beheer: Activiteit toevoegen"
+    body: "Docenten moeten tijdsblokken kunnen toevoegen via een formulier met datum, starttijd, eindtijd, omschrijving, locatie en doelgroep/klas."
+    labels: ["epic:beheer", "priority:must-have", "type:backend"]
+
+  - title: "Beheer: Activiteit wijzigen"
+    body: "Docenten moeten bestaande activiteiten kunnen aanpassen. Wijzigingen moeten direct zichtbaar zijn op het dashboard."
+    labels: ["epic:beheer", "priority:must-have", "type:backend"]
+
+  - title: "Beheer: Activiteit verwijderen"
+    body: "Docenten moeten activiteiten kunnen verwijderen. Activiteiten moeten direct verdwijnen uit het dashboard."
+    labels: ["epic:beheer", "priority:must-have", "type:backend"]
+
+  - title: "Gebruikersrollen: Studentenrol"
+    body: "Studenten mogen alleen het dashboard, filters, zoekfunctie en kalenderabonnement gebruiken. Geen toegang tot beheeromgeving."
+    labels: ["epic:rollen", "priority:must-have", "type:backend"]
+
+  - title: "Gebruikersrollen: Docentrol + Login"
+    body: "Docenten moeten kunnen inloggen en toegang krijgen tot de beheeromgeving. Rolgebaseerde toegang is verplicht."
+    labels: ["epic:rollen", "priority:must-have", "type:backend"]
+
+  - title: "Gebruikersrollen: Superbeheerder"
+    body: "Superbeheerders moeten rollen kunnen beheren en volledige toegang hebben tot alle activiteiten en instellingen."
+    labels: ["epic:rollen", "priority:must-have", "type:backend"]
+
+  - title: "Kalenderabonnement: Unieke abonnementslink genereren"
+    body: "Genereer een unieke ICS-link per student waarmee hun persoonlijke planning automatisch in hun agenda verschijnt."
+    labels: ["epic:calendar", "priority:must-have", "type:backend"]
+
+  - title: "Kalenderabonnement: ICS-feed genereren"
+    body: "Genereer een ICS-feed die compatibel is met Outlook, Google Calendar en Apple Calendar. De feed moet automatisch updates tonen."
+    labels: ["epic:calendar", "priority:must-have", "type:backend"]
+
+  - title: "Studenten: Activiteiten filteren"
+    body: "Studenten moeten activiteiten kunnen filteren op klas, opleiding of groep. Filters moeten direct toegepast worden op het dashboard."
+    labels: ["epic:student", "priority:must-have", "type:frontend"]
+
+  - title: "Studenten: Activiteiten zoeken"
+    body: "Studenten moeten kunnen zoeken op trefwoorden zoals omschrijving, locatie of klas. Resultaten moeten realtime gefilterd worden."
+    labels: ["epic:student", "priority:must-have", "type:frontend"]
+
+  - title: "Database: Activiteiten opslaan"
+    body: "Maak een database-tabel voor activiteiten met alle vereiste velden. Zorg voor indexen op datum en tijd voor snelle filtering."
+    labels: ["epic:database", "priority:must-have", "type:backend"]
+
+  # NICE TO HAVE FEATURES
+  - title: "Pushmeldingen"
+    body: "Implementeer web pushmeldingen zodat studenten updates ontvangen wanneer hun planning verandert."
+    labels: ["epic:nice-to-have", "priority:nice-to-have", "type:frontend"]
+
+  - title: "Kleurcodering per opleiding"
+    body: "Voeg kleurcodering toe aan activiteiten zodat studenten snel kunnen zien welke opleiding of klas relevant is."
+    labels: ["epic:nice-to-have", "priority:nice-to-have", "type:frontend"]
+
+  - title: "Dark mode"
+    body: "Implementeer een dark mode zodat gebruikers kunnen wisselen tussen lichte en donkere thema's."
+    labels: ["epic:nice-to-have", "priority:nice-to-have", "type:frontend"]
+
+  - title: "Mobiele weergave"
+    body: "Maak de volledige applicatie responsive zodat deze goed werkt op mobiele apparaten."
+    labels: ["epic:nice-to-have", "priority:nice-to-have", "type:frontend"]
+
+  - title: "Export naar Excel"
+    body: "Docenten moeten activiteiten kunnen exporteren naar Excel voor archivering of analyse."
+    labels: ["epic:nice-to-have", "priority:nice-to-have", "type:backend"]
+
+  - title: "QR-code voor kalenderabonnement"
+    body: "Genereer een QR-code die studenten kunnen scannen om hun persoonlijke kalenderabonnement direct toe te voegen."
+    labels: ["epic:nice-to-have", "priority:nice-to-have", "type:frontend"]
+
+  # AI LOGBOOK
+  - title: "AI-logboek: Automatisch logboek genereren"
+    body: "Houd automatisch een AI-logboek bij waarin alle AI-interacties worden opgeslagen. Iedere student moet een individueel logboek hebben."
+    labels: ["epic:ai", "priority:must-have", "type:backend"]
