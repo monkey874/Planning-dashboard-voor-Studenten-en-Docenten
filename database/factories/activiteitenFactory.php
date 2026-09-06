@@ -20,8 +20,8 @@ class activiteitenFactory extends Factory
     {
 
         return [
-            'titel' => $this->faker->sentence(),
-            'omschrijving' => $this->faker->paragraph(),
+            'titel' => $this->faker->streetName(),
+            'omschrijving' => $this->faker->sentence(),
             'datum' => $this->faker->dateTimeBetween(date("Y-m-d"), date("Y-m-d", strtotime("+1 month")))->format('Y-m-d'),
             'starttijd' => $this->faker->time(),
             'eindtijd' => $this->faker->time(),

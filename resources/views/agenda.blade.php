@@ -15,28 +15,30 @@
             <tbody>
                 @foreach ($activiteiten as $activiteit)
                 <tr class="border h-15  ">
-                    <td></td>
-                    @if(!empty($activiteit->titel))
-                    <td class="border p-3 ">{{ $activiteit->titel }}</td>
-                    @endif
-                    @if(!empty($activiteit->omschrijving))
-                    <td class="border p-3">{{ $activiteit->omschrijving }}</td>
-                    @endif
-                    @if(!empty($activiteit->datum))
-                    <td class="border p-3">{{ $activiteit->datum }}</td>
-                    @endif
-                    @if(!empty($activiteit->starttijd))
-                    <td class="border p-3">{{ $activiteit->starttijd }}</td>
-                    @endif
-                    @if(!empty($activiteit->eindtijd))
-                    <td class="border p-3">{{ $activiteit->eindtijd }}</td>
-                    @endif
-                    @if(!empty($activiteit->type))
-                    <td class="border p-3">{{ $activiteit->type }}</td>
-                    @endif
-                    @if(!empty($activiteit->aangemaakt_door))
-                    <td class="border p-3">{{ $activiteit->aangemaakt_door }}</td>
-                    @endif
+                    <div>
+                        <td></td>
+                        @if(!empty($activiteit->titel))
+                        <td class="border p-3 ">{{ $activiteit->titel }}</td>
+                        @endif
+                        @if(!empty($activiteit->omschrijving))
+                        <td class="border p-3">{{ $activiteit->omschrijving }}</td>
+                        @endif
+                        @if(!empty($activiteit->datum))
+                        <td class="border p-3">{{ $activiteit->datum }}</td>
+                        @endif
+                        @if(!empty($activiteit->starttijd))
+                        <td class="border p-3">{{ $activiteit->starttijd }}</td>
+                        @endif
+                        @if(!empty($activiteit->eindtijd))
+                        <td class="border p-3">{{ $activiteit->eindtijd }}</td>
+                        @endif
+                        @if(!empty($activiteit->type))
+                        <td class="border p-3">{{ $activiteit->type }}</td>
+                        @endif
+                        @if(!empty($activiteit->aangemaakt_door))
+                        <td class="border p-3">{{ $activiteit->aangemaakt_door }}</td>
+                        @endif
+                    </div>
                 </tr>
                 @endforeach
             </tbody>

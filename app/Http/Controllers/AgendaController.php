@@ -5,17 +5,19 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\activiteiten_model;
 use Illuminate\support\Facades\Route;
+use DateTime;
+use PHPUnit\Framework\Constraint\Count;
 
 class AgendaController extends Controller
 {
     public function agenda()
     {
         $this->index();
-        $routeNames = ['public board', 'gast board', 'docent board'];
+        $routeNames = ['public board', 'gast board', 'dashboard'];
         $projectionList = [
             'public board' => ['titel', 'datum', 'starttijd', 'eindtijd', 'type'],
             'gast board' => ['titel', 'omschrijving', 'datum', 'starttijd', 'eindtijd', 'type'],
-            'docent board' => ['titel', 'omschrijving', 'datum', 'starttijd', 'eindtijd', 'type', 'aangemaakt_door']
+            'dashboard' => ['titel', 'omschrijving', 'datum', 'starttijd', 'eindtijd', 'type', 'aangemaakt_door']
         ];
 
         $routeName = Route::currentRouteName();
@@ -26,20 +28,55 @@ class AgendaController extends Controller
             }
         }
 
+
         $activiteiten = activiteiten_model::select($projection)
             ->where('datum', '=', now()->format('Y-m-d'))
             ->orderby('starttijd', 'asc')
             ->get();
 
 
+        $Times = [];
+        $startTime = new DateTime('00:00');
+        $endTime = new DateTime('23:59');
 
-        return view('agenda', compact('activiteiten', 'projection'));
+        while ($startTime <= $endTime) {
+            $Times[] = $startTime->format('H:i');
+            $startTime->modify('+30 minutes');
+        }
+        $result = [];
+
+
+        for ($e = 0; $e < count($Times) - 1; $e++) {
+            $firstArrayTime = new DateTime($Times[$e]);
+            $secondArrayTime = new DateTime($Times[$e + 1]);
+
+            $slotActiviteiten = [];
+            foreach ($activiteiten as $activiteit) {
+                $activiteitTijd = new DateTime($activiteit->starttijd);
+
+
+                if ($activiteitTijd > $firstArrayTime && $activiteitTijd < $secondArrayTime) {
+                    $slotActiviteiten[] = [
+                        'ActiviteitTitel' => $activiteit->titel,
+                        'ActiviteitOmschrijving' => $activiteit->omschrijving,
+                        'ActiviteitDatum' => $activiteit->datum,
+                        'Activiteitstarttijd' => $activiteit->starttijd,
+                        'Activiteiteindtijd' => $activiteit->eindtijd,
+                        'Activiteiteindtype' => $activiteit->type,
+                        'ActiviteitAangemaakt door' => $activiteit->aangemaakt_door,
+                    ];
+                }
+            }
+            $result[] = [
+                'TimeSlot' => $Times[$e],
+                'Activiteiten' => $slotActiviteiten
+            ];
+        }
+
+
+
+        return view('/dashboard', compact('projection', 'result', 'Times'));
     }
 
-    public function index()
-    {
-
-        $Times = activiteiten_model::select('eindtijd')->orderBy('eindtijd', 'DESC')->first();
-        DD($Times);
-    }
+    public function index() {}
 }

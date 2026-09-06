@@ -6,10 +6,10 @@ use App\Http\Controllers\AgendaController;
 Route::view('/', 'welcome')->name('home');
 
 Route::middleware(['auth', 'verified'])->group(function () {
-    Route::view('dashboard', 'dashboard')->name('dashboard');
+
+    Route::get('/dashboard', [AgendaController::class, 'agenda'])->name('dashboard');
 });
 
-Route::get('/agenda', [AgendaController::class, 'agenda'])->name('public board');
 Route::get('/agenda1', [AgendaController::class, 'agenda'])->name('gast board');
 Route::get('/agenda2', [AgendaController::class, 'agenda'])->name('docent board');
 
