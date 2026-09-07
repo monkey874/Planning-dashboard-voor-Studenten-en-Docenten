@@ -14,7 +14,6 @@ return new class extends Migration
         Schema::create('opleidingen', function (Blueprint $table) {
             $table->id();
             $table->string('naam');
-            $table->string('afkorting', 16)->unique();
             $table->timestamps();
         });
     }
