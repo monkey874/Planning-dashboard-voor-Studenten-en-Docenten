@@ -11,15 +11,18 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 #[Fillable(['naam', 'opleiding_id'])]
 class Groep extends Model
 {
+    /** @use HasFactory<\Database\Factories\GroepFactory> */
     use HasFactory;
 
     protected $table = 'groepen';
 
+    /** @return BelongsTo<Opleiding, Groep> */
     public function opleiding(): BelongsTo
     {
         return $this->belongsTo(Opleiding::class);
     }
 
+    /** @return BelongsToMany<Activiteit, Groep> */
     public function activiteiten(): BelongsToMany
     {
         return $this->belongsToMany(Activiteit::class, 'activiteit_groep');

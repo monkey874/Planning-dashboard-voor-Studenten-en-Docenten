@@ -4,10 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Models\Groep;
 use App\Models\Opleiding;
+use Illuminate\View\View;
 
 class SubscriptionController extends Controller
 {
-    public function index()
+    public function index(): View
     {
         $opleidingen = Opleiding::with('groepen')->orderBy('naam')->get();
 
@@ -17,7 +18,7 @@ class SubscriptionController extends Controller
         ]);
     }
 
-    public function show(Opleiding $opleiding, Groep $groep)
+    public function show(Opleiding $opleiding, Groep $groep): View
     {
         abort_unless($groep->opleiding_id === $opleiding->id, 404);
 

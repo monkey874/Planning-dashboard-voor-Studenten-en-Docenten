@@ -4,12 +4,13 @@ namespace App\Http\Controllers;
 
 use App\Models\Groep;
 use App\Models\Opleiding;
+use Illuminate\Http\Response;
 use Spatie\IcalendarGenerator\Components\Calendar;
 use Spatie\IcalendarGenerator\Components\Event;
 
 class CalendarFeedController extends Controller
 {
-    public function feed(Opleiding $opleiding, Groep $groep)
+    public function feed(Opleiding $opleiding, Groep $groep): Response
     {
         abort_unless($groep->opleiding_id === $opleiding->id, 404);
 

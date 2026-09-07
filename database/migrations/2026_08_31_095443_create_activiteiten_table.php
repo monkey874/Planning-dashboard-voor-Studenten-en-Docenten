@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('activiteiten', function (Blueprint $table) {
             $table->id();
-            $table->string('title');
+            $table->string('titel');
             $table->text('omschrijving')->nullable();
             $table->date('datum');
             $table->time('starttijd');

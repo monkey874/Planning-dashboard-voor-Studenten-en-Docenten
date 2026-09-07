@@ -18,7 +18,7 @@ class ActiviteitFactory extends Factory
     public function definition(): array
     {
         return [
-            'title' => fake()->title,
+            'titel' => fake()->title,
             'omschrijving' => fake()->text(200),
             'datum' => now(),
             'starttijd' => fake()->time,
