@@ -25,9 +25,9 @@ class ActiviteitFactory extends Factory
             'eindtijd' => fake()->time,
             'locatie' => fake()->address,
             'type' => 'toets',
-            'aangemaakt_door' => "1",
+            'aangemaakt_door' => '1',
             'created_at' => now(),
-        'updated_at' => now()
+            'updated_at' => now(),
         ];
     }
 }

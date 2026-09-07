@@ -21,7 +21,7 @@ class GroepFactory extends Factory
             'naam' => fake()->lastName(),
             'opleiding_id' => '1',
             'created_at' => now(),
-            'updated_at' => now()
+            'updated_at' => now(),
         ];
     }
 }

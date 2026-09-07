@@ -20,7 +20,7 @@ class OpleidingFactory extends Factory
         return [
             'naam' => fake()->jobTitle(),
             'created_at' => now(),
-            'updated_at' => now()
+            'updated_at' => now(),
         ];
     }
 }
