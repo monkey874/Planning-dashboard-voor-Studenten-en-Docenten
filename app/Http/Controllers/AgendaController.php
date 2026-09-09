@@ -4,11 +4,12 @@ namespace App\Http\Controllers;
 
 use App\Models\activiteiten_model;
 use DateTime;
-use Illuminate\support\Facades\Route;
+use Illuminate\Support\Facades\Route;
+use Illuminate\View\View;
 
 class AgendaController extends Controller
 {
-    public function index()
+    public function index(): View
     {
         $routeNames = ['studentAgenda', 'dashboard', 'home'];
         $projectionList = [
@@ -34,9 +35,9 @@ class AgendaController extends Controller
 
         for ($i = 0; $i < count($routeNames); $i++) {
             if ($routeName == $routeNames[$i]) {
-                $projection = $projectionList[$routeName];
-                $view = '/'.$viewList[$routeName];
-                $crudRight = $crudSystemRight[$routeName];
+                $projection = $projectionList[$routeName] ?? null;
+                $view = '/' . $viewList[$routeName] ?? null;
+                $crudRight = $crudSystemRight[$routeName] ?? null;
 
                 break;
             }
