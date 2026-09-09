@@ -2,11 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Models\activiteiten_model;
-use Illuminate\support\Facades\Route;
 use DateTime;
-use PHPUnit\Framework\Constraint\Count;
+use Illuminate\support\Facades\Route;
 
 class AgendaController extends Controller
 {
@@ -17,23 +15,37 @@ class AgendaController extends Controller
         $projectionList = [
             'public board' => ['titel', 'datum', 'starttijd', 'eindtijd', 'type'],
             'gast board' => ['titel', 'omschrijving', 'datum', 'starttijd', 'eindtijd', 'type'],
-            'dashboard' => ['titel', 'omschrijving', 'datum', 'starttijd', 'eindtijd', 'type', 'aangemaakt_door']
+            'dashboard' => ['titel', 'omschrijving', 'datum', 'starttijd', 'eindtijd', 'type', 'aangemaakt_door'],
+        ];
+
+        $viewList = [
+            'public board' => 'agenda',
+            'gast board' => 'welcome',
+            'dashboard' => 'dashboard',
+
+        ];
+
+        $crudSystemRight = [
+            'public board' => false,
+            'gast board' => false,
+            'dashboard' => true,
         ];
 
         $routeName = Route::currentRouteName();
         for ($i = 0; $i < count($routeNames); $i++) {
             if ($routeName == $routeNames[$i]) {
                 $projection = $projectionList[$routeName];
+                $view = '/'.$viewList[$routeName];
+                $crudRight = $crudSystemRight[$routeName];
+
                 break;
             }
         }
 
-
         $activiteiten = activiteiten_model::select($projection)
-            ->where('datum', '=', now()->format('Y-m-d'))
+            ->where('datum', '=', now()->format('d-m-y'))
             ->orderby('starttijd', 'asc')
             ->get();
-
 
         $Times = [];
         $startTime = new DateTime('00:00');
@@ -41,10 +53,9 @@ class AgendaController extends Controller
 
         while ($startTime <= $endTime) {
             $Times[] = $startTime->format('H:i');
-            $startTime->modify('+30 minutes');
+            $startTime->modify('+15 minutes');
         }
         $result = [];
-
 
         for ($e = 0; $e < count($Times) - 1; $e++) {
             $firstArrayTime = new DateTime($Times[$e]);
@@ -53,7 +64,6 @@ class AgendaController extends Controller
             $slotActiviteiten = [];
             foreach ($activiteiten as $activiteit) {
                 $activiteitTijd = new DateTime($activiteit->starttijd);
-
 
                 if ($activiteitTijd > $firstArrayTime && $activiteitTijd < $secondArrayTime) {
                     $slotActiviteiten[] = [
@@ -69,13 +79,11 @@ class AgendaController extends Controller
             }
             $result[] = [
                 'TimeSlot' => $Times[$e],
-                'Activiteiten' => $slotActiviteiten
+                'Activiteiten' => $slotActiviteiten,
             ];
         }
 
-
-
-        return view('/dashboard', compact('projection', 'result', 'Times'));
+        return view($view, compact('projection', 'result', 'Times', 'crudRight'));
     }
 
     public function index() {}

@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Database\Factories\activiteitenFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -13,7 +14,7 @@ class activiteiten_model extends Model
 
     protected static function newFactory()
     {
-        return \Database\Factories\activiteitenFactory::new();
+        return activiteitenFactory::new();
     }
 
     protected $table = 'activiteiten';
@@ -25,6 +26,6 @@ class activiteiten_model extends Model
         'starttijd',
         'eindtijd',
         'type',
-        'aangemaakt_door'
+        'aangemaakt_door',
     ];
 }
