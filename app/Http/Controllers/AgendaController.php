@@ -36,7 +36,7 @@ class AgendaController extends Controller
         for ($i = 0; $i < count($routeNames); $i++) {
             if ($routeName == $routeNames[$i]) {
                 $projection = $projectionList[$routeName] ?? null;
-                $view = '/' . $viewList[$routeName] ?? null;
+                $view = '/'.$viewList[$routeName] ?? null;
                 $crudRight = $crudSystemRight[$routeName] ?? null;
 
                 break;
