@@ -27,7 +27,7 @@ class activiteitenFactory extends Factory
             'starttijd' => $this->faker->time(),
             'eindtijd' => $this->faker->time(),
             'type' => $this->faker->randomElement(['les', 'activiteit', 'overig']),
-            'aangemaakt_door' => $this->faker->numberBetween(1, 10),
+            'Auteur' => $this->faker->numberBetween(1, 10),
         ];
     }
 }
