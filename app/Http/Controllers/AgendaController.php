@@ -27,7 +27,7 @@ class AgendaController extends Controller
         $crudSystemRight = [
             'studentAgenda' => false,
             'dashboard' => true,
-            'home' => false
+            'home' => false,
         ];
 
         $routeName = Route::currentRouteName();
@@ -35,7 +35,7 @@ class AgendaController extends Controller
         for ($i = 0; $i < count($routeNames); $i++) {
             if ($routeName == $routeNames[$i]) {
                 $projection = $projectionList[$routeName];
-                $view = '/' . $viewList[$routeName];
+                $view = '/'.$viewList[$routeName];
                 $crudRight = $crudSystemRight[$routeName];
 
                 break;

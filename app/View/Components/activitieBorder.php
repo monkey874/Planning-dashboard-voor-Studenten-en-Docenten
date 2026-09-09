@@ -6,7 +6,7 @@ use Closure;
 use Illuminate\Contracts\View\View;
 use Illuminate\View\Component;
 
-class activitie-border extends Component
+class activitieBorder extends Component
 {
     /**
      * Create a new component instance.

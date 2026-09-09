@@ -12,4 +12,4 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
 Route::get('/studentAgenda', [AgendaController::class, 'index'])->name('studentAgenda');
 
-require __DIR__ . '/settings.php';
+require __DIR__.'/settings.php';
