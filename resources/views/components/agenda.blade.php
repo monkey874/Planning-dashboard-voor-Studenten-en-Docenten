@@ -10,7 +10,7 @@
     'starttijd' => 'Activiteitstarttijd',
     'eindtijd' => 'Activiteiteindtijd',
     'type' => 'Activiteiteindtype',
-    'aangemaakt_door' => 'ActiviteitAangemaakt door',
+    'Auteur' => 'ActiviteitAangemaakt door',
     ];
     @endphp
 

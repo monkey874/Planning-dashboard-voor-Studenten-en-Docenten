@@ -8,28 +8,24 @@ use Illuminate\support\Facades\Route;
 
 class AgendaController extends Controller
 {
-    public function agenda()
+    public function index()
     {
-        $this->index();
-        $routeNames = ['public board', 'gast board', 'dashboard', 'home'];
+        $routeNames = ['studentAgenda', 'dashboard', 'home'];
         $projectionList = [
-            'public board' => ['titel', 'datum', 'starttijd', 'eindtijd', 'type'],
-            'gast board' => ['titel', 'omschrijving', 'datum', 'starttijd', 'eindtijd', 'type'],
-            'dashboard' => ['titel', 'omschrijving', 'datum', 'starttijd', 'eindtijd', 'type', 'aangemaakt_door'],
+            'studentAgenda' => ['titel', 'omschrijving', 'datum', 'starttijd', 'eindtijd', 'type'],
+            'dashboard' => ['titel', 'omschrijving', 'datum', 'starttijd', 'eindtijd', 'type', 'Auteur'],
             'home' => ['titel', 'datum', 'starttijd', 'eindtijd', 'type'],
         ];
 
         $viewList = [
-            'public board' => 'agenda',
-            'gast board' => 'welcome',
+            'studentAgenda' => 'welcome',
             'dashboard' => 'dashboard',
             'home' => 'welcome',
 
         ];
 
         $crudSystemRight = [
-            'public board' => false,
-            'gast board' => false,
+            'studentAgenda' => false,
             'dashboard' => true,
             'home' => false
         ];
@@ -89,6 +85,4 @@ class AgendaController extends Controller
 
         return view($view, compact('projection', 'result', 'Times', 'crudRight'));
     }
-
-    public function index() {}
 }

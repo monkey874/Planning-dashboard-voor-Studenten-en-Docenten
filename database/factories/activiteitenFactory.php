@@ -21,12 +21,12 @@ class activiteitenFactory extends Factory
     {
 
         return [
-            'titel' => $this->faker->streetName(),
-            'omschrijving' => $this->faker->sentence(),
+            'titel' => $this->faker->randomElement(['uitleg SQL', 'Uitleg mongoDB', 'Uitleg SQLite', 'Uitleg PHP']),
+            'omschrijving' => $this->faker->randomElement(['we gaan het vandaag over dit onderwerp hebben tijdens de les', 'neem AUB een kladblok en een pen mee']),
             'datum' => $this->faker->dateTimeBetween(date('Y-m-d'), date('Y-m-d', strtotime('+1 month')))->format('d-m-y'),
             'starttijd' => $this->faker->time(),
             'eindtijd' => $this->faker->time(),
-            'type' => $this->faker->randomElement(['les', 'toets', 'activiteit', 'overig']),
+            'type' => $this->faker->randomElement(['les', 'activiteit', 'overig']),
             'aangemaakt_door' => $this->faker->numberBetween(1, 10),
         ];
     }

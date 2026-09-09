@@ -19,7 +19,7 @@ return new class extends Migration
             $table->dateTime('starttijd');
             $table->dateTime('eindtijd');
             $table->enum('type', ['les', 'toets', 'activiteit', 'overig'])->default('les');
-            $table->integer('aangemaakt_door');
+            $table->integer('Auteur');
         });
     }
 

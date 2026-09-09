@@ -26,6 +26,6 @@ class activiteiten_model extends Model
         'starttijd',
         'eindtijd',
         'type',
-        'aangemaakt_door',
+        'Auteur',
     ];
 }
