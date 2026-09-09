@@ -2,6 +2,18 @@
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     @props(['projection', 'result','Times', 'crudRight' ])
 
+    @php
+    $activityFields = [
+    'titel' => 'ActiviteitTitel',
+    'omschrijving' => 'ActiviteitOmschrijving',
+    'datum' => 'ActiviteitDatum',
+    'starttijd' => 'Activiteitstarttijd',
+    'eindtijd' => 'Activiteiteindtijd',
+    'type' => 'Activiteiteindtype',
+    'aangemaakt_door' => 'ActiviteitAangemaakt door',
+    ];
+    @endphp
+
 </head>
 
 
@@ -20,7 +32,7 @@
 
                                 @foreach($projection as $fields)
                                 <x-kolum>
-                                    <b>{{ $fields }}</b>
+                                    <b>{{ $fields  ?? '' }}</b>
                                 </x-kolum>
                                 @endforeach
 
@@ -50,33 +62,11 @@
                                     <p>{{ $index === 0 ? ($slot['TimeSlot'] ?? $slot['TimeSlot']) : $slot['TimeSlot'] }}</p>
                                 </x-kolum>
 
+                                @foreach($projection as $field)
                                 <x-kolum>
-                                    <p>{{ $Activiteit['ActiviteitTitel'] ?? '' }}</p>
+                                    <p>{{ $Activiteit[$activityFields[$field] ?? $field] ?? '' }}</p>
                                 </x-kolum>
-
-                                <x-kolum>
-                                    <p>{{ $Activiteit['ActiviteitOmschrijving'] ?? '' }}</p>
-                                </x-kolum>
-
-                                <x-kolum>
-                                    <p>{{ $Activiteit['ActiviteitDatum'] ?? '' }}</p>
-                                </x-kolum>
-
-                                <x-kolum>
-                                    <p>{{ $Activiteit['Activiteitstarttijd'] ?? '' }}</p>
-                                </x-kolum>
-
-                                <x-kolum>
-                                    <p>{{ $Activiteit['Activiteiteindtijd'] ?? '' }}</p>
-                                </x-kolum>
-
-                                <x-kolum>
-                                    <p>{{ $Activiteit['Activiteiteindtype'] ?? '' }}</p>
-                                </x-kolum>
-
-                                <x-kolum>
-                                    <p>{{ $Activiteit['ActiviteitAangemaakt door'] ?? '' }}</p>
-                                </x-kolum>
+                                @endforeach
 
                                 @if($crudRight)
                                 <x-kolum>

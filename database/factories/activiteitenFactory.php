@@ -16,13 +16,14 @@ class activiteitenFactory extends Factory
      * @return array<string, mixed>
      */
     protected $model = activiteiten_model::class;
+
     public function definition(): array
     {
 
         return [
             'titel' => $this->faker->streetName(),
             'omschrijving' => $this->faker->sentence(),
-            'datum' => $this->faker->dateTimeBetween(date("Y-m-d"), date("Y-m-d", strtotime("+1 month")))->format('Y-m-d'),
+            'datum' => $this->faker->dateTimeBetween(date('Y-m-d'), date('Y-m-d', strtotime('+1 month')))->format('d-m-y'),
             'starttijd' => $this->faker->time(),
             'eindtijd' => $this->faker->time(),
             'type' => $this->faker->randomElement(['les', 'toets', 'activiteit', 'overig']),
