@@ -11,17 +11,19 @@ class AgendaController extends Controller
     public function agenda()
     {
         $this->index();
-        $routeNames = ['public board', 'gast board', 'dashboard'];
+        $routeNames = ['public board', 'gast board', 'dashboard', 'home'];
         $projectionList = [
             'public board' => ['titel', 'datum', 'starttijd', 'eindtijd', 'type'],
             'gast board' => ['titel', 'omschrijving', 'datum', 'starttijd', 'eindtijd', 'type'],
             'dashboard' => ['titel', 'omschrijving', 'datum', 'starttijd', 'eindtijd', 'type', 'aangemaakt_door'],
+            'home' => ['titel', 'datum', 'starttijd', 'eindtijd', 'type'],
         ];
 
         $viewList = [
             'public board' => 'agenda',
             'gast board' => 'welcome',
             'dashboard' => 'dashboard',
+            'home' => 'welcome',
 
         ];
 
@@ -29,13 +31,15 @@ class AgendaController extends Controller
             'public board' => false,
             'gast board' => false,
             'dashboard' => true,
+            'home' => false
         ];
 
         $routeName = Route::currentRouteName();
+
         for ($i = 0; $i < count($routeNames); $i++) {
             if ($routeName == $routeNames[$i]) {
                 $projection = $projectionList[$routeName];
-                $view = '/'.$viewList[$routeName];
+                $view = '/' . $viewList[$routeName];
                 $crudRight = $crudSystemRight[$routeName];
 
                 break;
