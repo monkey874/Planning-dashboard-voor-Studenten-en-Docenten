@@ -74,7 +74,7 @@ class AgendaController extends Controller
                         'Activiteitstarttijd' => $activiteit->starttijd,
                         'Activiteiteindtijd' => $activiteit->eindtijd,
                         'Activiteiteindtype' => $activiteit->type,
-                        'ActiviteitAangemaakt door' => $activiteit->aangemaakt_door,
+                        'ActiviteitAangemaakt door' => $activiteit->Auteur,
                     ];
                 }
             }
@@ -83,7 +83,11 @@ class AgendaController extends Controller
                 'Activiteiten' => $slotActiviteiten,
             ];
         }
+        if (isset($projection, $result, $Times, $crudRight, $view)) {
 
-        return view($view, compact('projection', 'result', 'Times', 'crudRight'));
+            return view($view, compact('projection', 'result', 'Times', 'crudRight'));
+        } else {
+            abort(404);
+        }
     }
 }
