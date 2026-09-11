@@ -6,6 +6,8 @@
 /public/storage
 /storage/*.key
 /storage/pail
+/Ai logboek rick/ 
+/agents/
 /vendor
 .env
 .env.backup
