@@ -16,7 +16,8 @@ return new class extends Migration
             $table->foreignId('activiteit_id')->constrained('activiteiten')->cascadeOnDelete();
             $table->foreignId('groep_id')->constrained('groepen')->cascadeOnDelete();
 
-            $table->unique(['activiteit_id', 'groep_id']);
+            //$table->unique(['activiteit_id', 'groep_id']);
+            $table->timestamps();
         });
     }
 
