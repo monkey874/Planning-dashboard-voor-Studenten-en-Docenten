@@ -16,7 +16,7 @@ class Opleiding extends Model
 
     protected $table = 'opleidingen';
 
-    /** @return HasMany<Groep, Opleiding> */
+    /** @return HasMany<Groep, $this> */
     public function groepen(): HasMany
     {
         return $this->hasMany(Groep::class);

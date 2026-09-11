@@ -17,13 +17,13 @@ class Groep extends Model
 
     protected $table = 'groepen';
 
-    /** @return BelongsTo<Opleiding, Groep> */
+    /** @return BelongsTo<Opleiding, $this> */
     public function opleiding(): BelongsTo
     {
         return $this->belongsTo(Opleiding::class);
     }
 
-    /** @return BelongsToMany<Activiteit, Groep> */
+    /** @return BelongsToMany<Activiteit, $this> */
     public function activiteiten(): BelongsToMany
     {
         return $this->belongsToMany(Activiteit::class, 'activiteit_groep');

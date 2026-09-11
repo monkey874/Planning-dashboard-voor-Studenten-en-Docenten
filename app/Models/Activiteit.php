@@ -34,13 +34,13 @@ class Activiteit extends Model
         ];
     }
 
-    /** @return BelongsTo<User, Activiteit> */
+    /** @return BelongsTo<User, $this> */
     public function aangemaaktDoor(): BelongsTo
     {
         return $this->belongsTo(User::class, 'aangemaakt_door');
     }
 
-    /** @return BelongsToMany<Groep, Activiteit> */
+    /** @return BelongsToMany<Groep, $this> */
     public function groepen(): BelongsToMany
     {
         return $this->belongsToMany(Groep::class, 'activiteit_groep');
