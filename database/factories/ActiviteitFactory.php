@@ -5,6 +5,8 @@ namespace Database\Factories;
 use App\Models\Activiteit;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
+use function Illuminate\Support\now;
+
 /**
  * @extends Factory<Activiteit>
  */
@@ -18,12 +20,12 @@ class ActiviteitFactory extends Factory
     public function definition(): array
     {
         return [
-            'titel' => fake()->title,
-            'omschrijving' => fake()->text(200),
-            'datum' => now(),
+            'titel' => fake()->randomElement(['uitleg SQL', 'Uitleg mongoDB', 'Uitleg SQLite', 'Uitleg PHP']),
+            'omschrijving' => fake()->randomElement(['we gaan het vandaag over dit onderwerp hebben tijdens de les', 'neem AUB een kladblok en een pen mee']),
             'starttijd' => fake()->time,
             'eindtijd' => fake()->time,
             'locatie' => fake()->address,
+            'datum' => fake()->dateTimeBetween(now(), now()->addMonth()),
             'type' => 'toets',
             'aangemaakt_door' => '1',
             'created_at' => now(),

@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\activiteiten_model;
+use App\Models\Activiteit;
 use DateTime;
 use Illuminate\Support\Facades\Route;
 use Illuminate\View\View;
@@ -13,9 +13,9 @@ class AgendaController extends Controller
     {
         $routeNames = ['studentAgenda', 'dashboard', 'home'];
         $projectionList = [
-            'studentAgenda' => ['titel', 'omschrijving', 'datum', 'starttijd', 'eindtijd', 'type'],
-            'dashboard' => ['titel', 'omschrijving', 'datum', 'starttijd', 'eindtijd', 'type', 'Auteur'],
-            'home' => ['titel', 'datum', 'starttijd', 'eindtijd', 'type'],
+            'studentAgenda' => ['titel', 'omschrijving', 'datum', 'starttijd', 'eindtijd', 'locatie', 'type'],
+            'dashboard' => ['titel', 'omschrijving', 'datum', 'starttijd', 'eindtijd', 'locatie', 'type', 'aangemaakt_door'],
+            'home' => ['titel', 'datum', 'starttijd', 'eindtijd', 'type', 'locatie'],
         ];
 
         $viewList = [
@@ -36,17 +36,19 @@ class AgendaController extends Controller
         for ($i = 0; $i < count($routeNames); $i++) {
             if ($routeName == $routeNames[$i]) {
                 $projection = $projectionList[$routeName] ?? null;
-                $view = '/'.$viewList[$routeName] ?? null;
+                $view = '/' . $viewList[$routeName] ?? null;
                 $crudRight = $crudSystemRight[$routeName] ?? null;
 
                 break;
             }
         }
 
-        $activiteiten = activiteiten_model::select($projection)
-            ->where('datum', '=', now()->format('d-m-y'))
+        $activiteiten = Activiteit::select($projection)
+            ->whereDate('datum', now())
             ->orderby('starttijd', 'asc')
             ->get();
+
+
 
         $Times = [];
         $startTime = new DateTime('00:00');
@@ -70,11 +72,12 @@ class AgendaController extends Controller
                     $slotActiviteiten[] = [
                         'ActiviteitTitel' => $activiteit->titel,
                         'ActiviteitOmschrijving' => $activiteit->omschrijving,
-                        'ActiviteitDatum' => $activiteit->datum,
+                        'ActiviteitDatum' => $activiteit->datum->format('d-m-Y'),
                         'Activiteitstarttijd' => $activiteit->starttijd,
                         'Activiteiteindtijd' => $activiteit->eindtijd,
+                        'ActiviteitLocatie' => $activiteit->locatie,
                         'Activiteiteindtype' => $activiteit->type,
-                        'ActiviteitAangemaakt door' => $activiteit->Auteur,
+                        'ActiviteitAangemaakt door' => $activiteit->aangemaakt_door,
                     ];
                 }
             }

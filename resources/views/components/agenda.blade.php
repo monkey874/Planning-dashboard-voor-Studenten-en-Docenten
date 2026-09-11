@@ -9,8 +9,9 @@
     'datum' => 'ActiviteitDatum',
     'starttijd' => 'Activiteitstarttijd',
     'eindtijd' => 'Activiteiteindtijd',
+    'locatie' => 'ActiviteitLocatie',
     'type' => 'Activiteiteindtype',
-    'Auteur' => 'ActiviteitAangemaakt door',
+    'aangemaakt_door' => 'ActiviteitAangemaakt door',
     ];
     @endphp
 
