@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Activiteit;
 use DateTime;
+use App\Http\Controllers\JsonStructureActiviteiten;
 use Illuminate\Support\Facades\Route;
 use Illuminate\View\View;
 
@@ -50,42 +51,14 @@ class AgendaController extends Controller
 
 
 
-        $Times = [];
-        $startTime = new DateTime('00:00');
-        $endTime = new DateTime('23:59');
+        $timeController = new timeController;
+        $Times = $timeController->MakeTimeSheet();
 
-        while ($startTime <= $endTime) {
-            $Times[] = $startTime->format('H:i');
-            $startTime->modify('+15 minutes');
-        }
-        $result = [];
+        $activiteitenStructure = new JsonStructureActiviteiten;
+        $result = $activiteitenStructure->generateActiviteitenJson($Times, $activiteiten);
 
-        for ($e = 0; $e < count($Times) - 1; $e++) {
-            $firstArrayTime = new DateTime($Times[$e]);
-            $secondArrayTime = new DateTime($Times[$e + 1]);
 
-            $slotActiviteiten = [];
-            foreach ($activiteiten as $activiteit) {
-                $activiteitTijd = new DateTime($activiteit->starttijd);
 
-                if ($activiteitTijd > $firstArrayTime && $activiteitTijd < $secondArrayTime) {
-                    $slotActiviteiten[] = [
-                        'ActiviteitTitel' => $activiteit->titel,
-                        'ActiviteitOmschrijving' => $activiteit->omschrijving,
-                        'ActiviteitDatum' => $activiteit->datum->format('d-m-Y'),
-                        'Activiteitstarttijd' => $activiteit->starttijd,
-                        'Activiteiteindtijd' => $activiteit->eindtijd,
-                        'ActiviteitLocatie' => $activiteit->locatie,
-                        'Activiteiteindtype' => $activiteit->type,
-                        'ActiviteitAangemaakt door' => $activiteit->aangemaakt_door,
-                    ];
-                }
-            }
-            $result[] = [
-                'TimeSlot' => $Times[$e],
-                'Activiteiten' => $slotActiviteiten,
-            ];
-        }
         if (isset($projection, $result, $Times, $crudRight, $view)) {
 
             return view($view, compact('projection', 'result', 'Times', 'crudRight'));

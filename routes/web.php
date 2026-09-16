@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AgendaController;
+use App\Http\Controllers\ExcelController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', [AgendaController::class, 'index'])->name('home');
@@ -20,5 +21,6 @@ Route::middleware(['auth', 'verified'])->group(function () {
 });
 
 Route::get('/studentAgenda', [AgendaController::class, 'index'])->name('studentAgenda');
+Route::get('/excel', [ExcelController::class, 'index'])->name('excel');
 
 require __DIR__ . '/settings.php';

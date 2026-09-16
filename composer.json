@@ -21,6 +21,7 @@
         "livewire/blaze": "^1.0",
         "livewire/flux": "^2.13.1",
         "livewire/livewire": "^4.1",
+        "maatwebsite/excel": "^4.0",
         "spatie/icalendar-generator": "^3.3"
     },
     "require-dev": {

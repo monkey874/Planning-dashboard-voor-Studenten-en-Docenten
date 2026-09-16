@@ -1719,6 +1719,8 @@
     @if (Route::has('login'))
     <div class="h-14.5 hidden lg:block"></div>
     @endif
+    <x-exportButton></x-exportButton>
+    <livewire:search-activiteit :projection="$projection" :result="$result" :Times="$Times" :crudRight="$crudRight"></livewire:search-activiteit>
 
     <x-agenda :projection="$projection" :result="$result" :Times="$Times" :crudRight="$crudRight">
 

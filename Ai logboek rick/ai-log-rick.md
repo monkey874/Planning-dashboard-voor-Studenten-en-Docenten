@@ -227,3 +227,105 @@ Erkend dat de eerste diagnose alleen naar de kolombreedte keek en niet naar het 
 ### Resultaat
 
 De eerste foutieve diagnose is expliciet gecorrigeerd in het logboek. Er ontbreekt geen nieuwe technische controle voor deze korte terugkoppeling.
+
+## Registratie: 2026-09-14
+
+### Taak
+
+Onderzoeken waar het fout gaat bij het openen van de route `/excel`.
+
+### Prompt
+
+```text
+waar gaat het fout als ik naar de route excel ga
+```
+
+### Outputsamenvatting
+
+De route in `routes/web.php` verwijst correct naar `App\Http\Controllers\excel::index()`. De directe fout zit in `app/Exports/activiteitenExport.php`: de methode heet `Collection()` met een hoofdletter, terwijl de interface `FromCollection::collection()` verwacht. De foutcontrole meldt daarom dat deze methode niet compatibel is met de interface.
+
+Daarnaast is vastgesteld dat er geen `.env`-bestand in de workspace is gevonden. In `storage/logs/laravel.log` staat eerder de fout `No application encryption key has been specified`; als de `APP_KEY` nog ontbreekt, blokkeert dat Laravel eveneens.
+
+### Kritische beoordeling
+
+- Was de analyse gecontroleerd? Ja, de route, controller en exportklasse zijn gelezen en de foutcontrole is uitgevoerd op de drie relevante PHP-bestanden.
+- Wat is de meest directe oorzaak? De incompatibele methode `Collection()` in de exportklasse.
+- Welke aanvullende oorzaak is mogelijk? Een ontbrekende `.env`/`APP_KEY`, gebaseerd op het ontbreken van `.env` en de bestaande logmelding.
+- Is de route zelf fout? Nee, op basis van de gelezen route is geen routefout gevonden.
+
+### Eigen aanpassingen
+
+- De student heeft alleen gevraagd om de fout te onderzoeken; er is geen broncode aangepast.
+- Alleen deze logregistratie is toegevoegd.
+
+### Resultaat
+
+De primaire fout is gelokaliseerd in de exportklasse bij de naam en interface-compatibiliteit van `Collection()`. Controleer daarnaast of een `.env`-bestand met een geldige `APP_KEY` aanwezig is. Er ontbreekt nog een nieuwe browsercontrole na het herstellen van deze punten.
+
+## Registratie: 2026-09-14
+
+### Taak
+
+De fatal error oplossen bij het openen van de route `/excel`.
+
+### Prompt
+
+```text
+ik krijg deze error # Symfony\\Component\\ErrorHandler\\Error\\FatalError
+app\\Http\\Controllers\\excel.php:10
+Cannot redeclare class App\\Http\\Controllers\\excel (previously declared as local import)
+```
+
+### Outputsamenvatting
+
+De fout werd veroorzaakt door een naamconflict: de controller heette `excel`, terwijl in dezelfde namespace de facade `Excel` als lokale import werd gebruikt. PHP behandelt klassennamen hoofdletterongevoelig, waardoor `excel` en `Excel` als dezelfde naam werden gezien.
+
+De controller is hernoemd naar `ExcelController` en de route gebruikt nu `ExcelController::class`. Tijdens de daaropvolgende controle kwam ook naar voren dat `FromCollection` een methode `collection(): Enumerable` vereist. Dat returntype is toegevoegd aan `activiteitenExport`.
+
+### Kritische beoordeling
+
+- Was de foutoorzaak correct? Ja, de foutmelding noemt expliciet een lokale import en de controller gebruikte de conflicterende naam `excel` naast de facade `Excel`.
+- Hoe is de oplossing gecontroleerd? De route, controller en exportklasse zijn gecontroleerd met de beschikbare PHP-foutcontrole.
+- Wat was de vervolgfout? De exportmethode miste het verplichte returntype uit `Maatwebsite\\Excel\\Concerns\\FromCollection`.
+- Zijn er nog bekende codefouten in deze drie bestanden? Nee, de laatste foutcontrole gaf voor alle drie `No errors found`.
+
+### Eigen aanpassingen
+
+- De student heeft de exacte fatal error aangeleverd en daarmee de foutlocatie verduidelijkt.
+- De broncode is aangepast door de controller te hernoemen, de route bij te werken en het returntype van de exportmethode toe te voegen.
+
+### Resultaat
+
+Het naamconflict tussen de controller en de Excel-facade is opgelost. Ook de interface-compatibiliteit van de export is hersteld. De bestanden zijn statisch gecontroleerd; een daadwerkelijke browserdownload van `/excel` is nog niet uitgevoerd.
+
+## Registratie: 2026-09-14
+
+### Taak
+
+Uitleggen wat de Livewire-fout over meerdere root-elementen in de component `search-users` betekent.
+
+### Prompt
+
+```text
+wat betekent de fout `Livewire only supports one HTML element per component. Multiple root elements detected for component: [search-users]`
+```
+
+### Outputsamenvatting
+
+De fout betekent dat een Livewire-component precies één HTML-rootelement moet hebben. Onderzoek wees uit dat `resources/views/components/search-users.blade.php` twee losse `div`-rootelementen had. Beide `div`-elementen zijn daarom onder één omhullende `div` geplaatst.
+
+### Kritische beoordeling
+
+- Was de foutoorzaak correct? Ja, de twee losse `div`-rootelementen in de Blade-view kwamen overeen met de melding over meerdere root-elementen.
+- Hoe is de oplossing gecontroleerd? De foutcontrole gaf geen fouten voor de Blade-view en `app/Livewire/SearchUsers.php`.
+- Welke fouten of tekortkomingen ontdekte ik? Geen fouten bij de controle van de betrokken bestanden.
+
+### Eigen aanpassingen
+
+- De student heeft gevraagd om de betekenis van de Livewire-fout te onderzoeken.
+- De twee bestaande `div`-elementen zijn onder één omhullende `div` geplaatst.
+- Er zijn geen andere bestanden aangepast.
+
+### Resultaat
+
+De `search-users`-component heeft nu één HTML-rootelement en voldoet daarmee aan de Livewire-voorwaarde. De foutcontrole van de Blade-view en `app/Livewire/SearchUsers.php` gaf geen fouten.
