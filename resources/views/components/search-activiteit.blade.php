@@ -33,7 +33,7 @@
 
     <body class="p-0 m-0">
         <diV>
-            <table class="w-full h-full">
+            <table class="w-full h-full" wire:poll="refreshData">
                 <thead>
                     <tr>
                         <td>
