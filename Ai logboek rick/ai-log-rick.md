@@ -34,6 +34,39 @@ Uitgelegd dat PHP hiervoor `DateTime` en `diff()` kan gebruiken. De invoer `20:0
 
 Een PHP-oplossing om twee tijden af te trekken, inclusief een correcte aanpak voor een tijdsverschil dat over middernacht heen gaat.
 
+## Registratie: 2026-09-16
+
+### Taak
+
+Onderzoeken waarom er op de homepagina twee headers zichtbaar zijn.
+
+### Prompt
+
+```text
+waarom krijg ik op mijn homepagina twee headers te zien ?
+```
+
+### Outputsamenvatting
+
+De routes en Blade-views zijn gecontroleerd. De route `/` gebruikt `AgendaController@index` en rendert volgens de controller `welcome.blade.php`. In deze view staat een eigen `<header>` met navigatie voor Dashboard, Login en Register. De agenda-component wordt daaronder gerenderd, maar bevat zelf geen tweede `<header>`-element.
+
+Daarnaast bevat de app-layout een aparte `flux:header` in `resources/views/layouts/app/header.blade.php` en een mobiele `flux:header` in `resources/views/layouts/app.blade.php`. Die headers horen bij de dashboard-layout en zijn niet onderdeel van de home-route `/`.
+
+### Kritische beoordeling
+
+- De oorzaak is afhankelijk van de geopende route. Op `/` is één HTML-header aanwezig; een tweede zichtbare balk kan afkomstig zijn van een ander layout- of componentgedeelte dat visueel als header wordt ervaren.
+- Op `/dashboard` worden de app-layoutbestanden gebruikt en kunnen de algemene header en mobiele layout-header in beeld komen, afhankelijk van de schermgrootte.
+- De agenda-component bevat geen tweede `<header>`-tag; de tabelkop is dus geen tweede HTML-header, maar kan wel als extra kopbalk worden gezien.
+
+### Eigen aanpassingen
+
+- De student heeft alleen gevraagd om de oorzaak te onderzoeken.
+- Er is geen broncode aangepast; alleen deze registratie is toegevoegd.
+
+### Resultaat
+
+De dubbele header is niet veroorzaakt door twee `<header>`-elementen in de agenda-component. De relevante bronnen zijn de navigatie-header in `welcome.blade.php` voor `/` en de Flux-headers in de dashboard-layout voor `/dashboard`. Een screenshot of exacte URL waarop de twee headers zichtbaar zijn is nog nodig om vast te stellen welke van deze twee situaties de student ziet.
+
 ## Registratie: 2026-09-09
 
 ### Taak
@@ -329,3 +362,127 @@ De fout betekent dat een Livewire-component precies één HTML-rootelement moet 
 ### Resultaat
 
 De `search-users`-component heeft nu één HTML-rootelement en voldoet daarmee aan de Livewire-voorwaarde. De foutcontrole van de Blade-view en `app/Livewire/SearchUsers.php` gaf geen fouten.
+
+## Registratie: 2026-09-16
+
+### Taak
+
+De exportknop op de homepagina links naast de andere knoppen plaatsen.
+
+### Prompt
+
+```text
+kan je me helpen bij welkom.blade ik wil mijn knoppen x-exportbutton aan de linkerkant hebben staan samen met de andere buttons
+```
+
+### Outputsamenvatting
+
+In `welcome.blade.php` werd vastgesteld dat `<x-exportButton>` twee keer buiten de navigatiegroep werd aangeroepen. De wrapper centreerde de knoppen bovendien met `justify-center`. Een exportknop is in dezelfde `<nav>` geplaatst als de Dashboard-, Login- en Registerknoppen. De uitlijning is gewijzigd naar links met `justify-start` en de dubbele exportknop is verwijderd.
+
+### Kritische beoordeling
+
+- De wijziging sluit aan op de vraag: de exportknop staat nu in dezelfde flexgroep en wordt links uitgelijnd.
+- De viewcontrole gaf geen nieuwe foutmelding door deze wijziging.
+- Er blijven drie bestaande stijlwaarschuwingen in `welcome.blade.php` staan over `vertical-align`, een vereenvoudigbare dark-mode class en een vereenvoudigbare maximale breedte.
+
+### Eigen aanpassingen
+
+- De student heeft gekozen om de exportknop bij de bestaande navigatieknoppen te plaatsen.
+- De broncode is alleen aangepast in `welcome.blade.php`; de dubbele exportknop is verwijderd.
+
+### Resultaat
+
+Er wordt nu één exportknop weergegeven, links naast de andere knoppen in de navigatiegroep. De gewijzigde Blade-view is gecontroleerd; alleen bestaande stijlwaarschuwingen blijven over.
+
+## Registratie: 2026-09-16
+
+### Taak
+
+Alle knoppen op de homepagina onder elkaar plaatsen.
+
+### Prompt
+
+```text
+zet alle kopjes onder elkaar
+```
+
+### Outputsamenvatting
+
+De actuele `welcome.blade.php` bevatte een horizontale navigatie voor Dashboard, Login en Register en een aparte horizontale groep voor abonnement en Excel-export. Deze groepen zijn samengevoegd in dezelfde `<nav>` en de flexrichting is gewijzigd naar `flex-col`, zodat alle knoppen onder elkaar staan.
+
+### Kritische beoordeling
+
+- De wijziging is gecontroleerd met de foutcontrole voor `welcome.blade.php`.
+- Er zijn geen nieuwe fouten door de wijziging gevonden.
+- De controle meldt nog dezelfde drie bestaande stijlwaarschuwingen over `vertical-align`, `dark:bg-[#0a0a0a]` en `max-w-[335px]`.
+
+### Eigen aanpassingen
+
+- De student heeft gevraagd om alle knoppen verticaal onder elkaar te plaatsen.
+- Alleen de knopstructuur in `welcome.blade.php` is aangepast.
+
+### Resultaat
+
+De Dashboard-, Login-, Register-, abonnement- en Excelknoppen worden nu verticaal onder elkaar weergegeven.
+
+## Registratie: 2026-09-16
+
+### Taak
+
+De verticale knoppen helemaal aan de rechterkant van de pagina plaatsen.
+
+### Prompt
+
+```text
+de knoppen moeten helemaal aande rechter kant komen te staan
+```
+
+### Outputsamenvatting
+
+De knopkolom gebruikte al `items-end`, maar de header was op grote schermen beperkt tot `lg:max-w-4xl`. Die maximale breedte is verwijderd en vervangen door `max-w-none`, zodat de header de volledige beschikbare breedte gebruikt. Daardoor lijnen de knoppen uit aan de rechterkant van de pagina.
+
+### Kritische beoordeling
+
+- De wijziging is gecontroleerd met de foutcontrole voor `welcome.blade.php`.
+- Er zijn geen nieuwe fouten door deze wijziging gevonden.
+- Er blijven twee bestaande waarschuwingen staan over `vertical-align` en de vereenvoudigbare dark-mode class.
+
+### Eigen aanpassingen
+
+- De student heeft aangegeven dat de knoppen volledig rechts moeten staan.
+- Alleen de maximale breedte van de header in `welcome.blade.php` is aangepast.
+
+### Resultaat
+
+De verticale knopkolom gebruikt nu de volledige headerbreedte en staat daardoor helemaal rechts uitgelijnd.
+
+## Registratie: 2026-09-16
+
+### Taak
+
+Onderzoeken waarom op de homepagina twee identieke tabelkoppen zichtbaar zijn.
+
+### Prompt
+
+```text
+en waarom zie ik nu twee headers
+```
+
+### Outputsamenvatting
+
+In `welcome.blade.php` worden zowel `<livewire:search-activiteit>` als `<x-agenda>` gerenderd. De view van `search-activiteit` bevat zelf een volledige tabel met een `<thead>` en dezelfde kolomkoppen als `components/agenda.blade.php`. Daarna rendert `<x-agenda>` opnieuw een volledige tabel met dezelfde header. Daardoor verschijnen twee identieke tabelkoppen.
+
+### Kritische beoordeling
+
+- De oorzaak is direct bevestigd door beide Blade-views naast de aanroepen in `welcome.blade.php` te vergelijken.
+- De screenshot toont dezelfde kolomnamen twee keer, wat overeenkomt met de dubbele tabelrendering.
+- Er is geen broncode aangepast, omdat de student alleen naar de oorzaak vroeg.
+
+### Eigen aanpassingen
+
+- De student heeft de dubbele headers gemeld met een screenshot.
+- Alleen deze logregistratie is toegevoegd.
+
+### Resultaat
+
+De dubbele headers ontstaan doordat de zoekcomponent en de agenda-component allebei een volledige agenda-tabel renderen. Eén van deze twee tabelweergaven moet later worden verwijderd of aangepast, afhankelijk van of de zoekresultaten in dezelfde agenda moeten verschijnen.
