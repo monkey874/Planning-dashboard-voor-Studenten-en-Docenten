@@ -9,46 +9,68 @@
             <link rel="icon" href="/favicon.ico" sizes="any">
             <link rel="icon" href="/favicon.svg" type="image/svg+xml">
             <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+
+            @vite(['resources/css/app.css'])
         </head>
-        <body>
-            @if ($groep)
-                @php
-                    $feedUrl = route('calendar.feed', ['opleiding' => $opleiding, 'groep' => $groep]);
-                    $webcalUrl = 'webcal://'.request()->getHttpHost().parse_url($feedUrl, PHP_URL_PATH);
-                @endphp
-                <div class="subbutton">
-                    <p>Subscribe to the calendar for {{ $opleiding->naam }} - {{ $groep->naam }}</p>
-                </div>
-                <div class="options">
-                    <ul>
-                        <li><a href="{{ $webcalUrl }}">Subscribe (Apple Calendar)</a></li>
-                        <li><a href="https://calendar.google.com/calendar/render?cid={{ urlencode($feedUrl) }}">Subscribe (Google Calendar)</a></li>
-                        <li><a href="{{ $feedUrl }}">Download / subscribe (.ics link)</a></li>
-                    </ul>
-                </div>
-            @else
-                <div class="subbutton">
-                    <p>Kies je groep om je eigen kalender-link te krijgen</p>
-                </div>
-                <div class="options">
-                    @forelse ($opleidingen as $opleiding)
-                        <p>{{ $opleiding->naam }}</p>
-                        <ul>
-                            @forelse ($opleiding->groepen as $groepItem)
-                                <li>
-                                    <a href="{{ route('sub.show', ['opleiding' => $opleiding, 'groep' => $groepItem]) }}">
-                                        {{ $groepItem->naam }}
-                                    </a>
-                                </li>
-                            @empty
-                                <li>Geen groepen</li>
-                            @endforelse
+        <body class="min-h-screen bg-zinc-50 text-zinc-900 antialiased">
+            <div class="mx-auto max-w-2xl px-4 py-12">
+                @if ($groep)
+                    @php
+                        $feedUrl = route('calendar.feed', ['opleiding' => $opleiding, 'groep' => $groep]);
+                        $webcalUrl = 'webcal://'.request()->getHttpHost().parse_url($feedUrl, PHP_URL_PATH);
+                        $googleUrl = 'https://calendar.google.com/calendar/render?cid='.urlencode($feedUrl);
+                        $testurl = 'https://kontender.nl'
+                    @endphp
+                    <div class="mb-8">
+                        <p class="text-lg font-semibold text-zinc-900">
+                            Subscribe to the calendar for {{ $opleiding->naam }} - {{ $groep->naam }}
+                        </p>
+                    </div>
+                    <div>
+                        <ul class="space-y-4">
+                            <li class="flex items-center justify-between gap-4 rounded-lg border border-zinc-200 bg-white p-4 shadow-sm">
+                                <a href="{{ $webcalUrl }}" class="font-medium text-accent hover:underline">Subscribe (Apple Calendar)</a>
+                                <x-qr-code :data="$webcalUrl" class="size-24 shrink-0" />
+                            </li>
+                            <li class="flex items-center justify-between gap-4 rounded-lg border border-zinc-200 bg-white p-4 shadow-sm">
+                                <a href="{{ $googleUrl }}" class="font-medium text-accent hover:underline">Subscribe (Google Calendar)</a>
+                                <x-qr-code :data="$googleUrl" class="size-24 shrink-0" />
+                            </li>
+                            <li class="flex items-center justify-between gap-4 rounded-lg border border-zinc-200 bg-white p-4 shadow-sm">
+                                <a href="{{ $testurl }}" class="font-medium text-accent hover:underline">test</a>
+                                <x-qr-code :data="$testurl" class="size-24 shrink-0" />
+                            </li>
+                            <li class="rounded-lg border border-zinc-200 bg-white p-4 shadow-sm">
+                                <a href="{{ $feedUrl }}" class="font-medium text-accent hover:underline">Download / subscribe (.ics link)</a>
+                            </li>
                         </ul>
-                    @empty
-                        <p>Geen opleidingen gevonden</p>
-                    @endforelse
-                </div>
-            @endif
+                    </div>
+                @else
+                    <div class="mb-8">
+                        <p class="text-lg font-semibold text-zinc-900">Kies je groep om je eigen kalender-link te krijgen</p>
+                    </div>
+                    <div class="space-y-6">
+                        @forelse ($opleidingen as $opleiding)
+                            <div>
+                                <p class="mb-2 font-semibold text-zinc-700">{{ $opleiding->naam }}</p>
+                                <ul class="space-y-2">
+                                    @forelse ($opleiding->groepen as $groepItem)
+                                        <li class="rounded-lg border border-zinc-200 bg-white p-3 shadow-sm">
+                                            <a href="{{ route('sub.show', ['opleiding' => $opleiding, 'groep' => $groepItem]) }}" class="font-medium text-accent hover:underline">
+                                                {{ $groepItem->naam }}
+                                            </a>
+                                        </li>
+                                    @empty
+                                        <li class="text-zinc-500">Geen groepen</li>
+                                    @endforelse
+                                </ul>
+                            </div>
+                        @empty
+                            <p class="text-zinc-500">Geen opleidingen gevonden</p>
+                        @endforelse
+                    </div>
+                @endif
+            </div>
         </body>
 
     </html>

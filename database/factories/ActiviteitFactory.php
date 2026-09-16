@@ -28,7 +28,7 @@ class ActiviteitFactory extends Factory
             'starttijd' => $start->format('H:i:s'),
             'eindtijd' => $end->format('H:i:s'),
             'locatie' => fake()->address,
-            'datum' => fake()->dateTimeBetween(now(), now()->addMonth()),
+            'datum' => fake()->dateTimeBetween(now(), now()),
             'type' => 'toets',
             'aangemaakt_door' => '1',
             'created_at' => now(),
