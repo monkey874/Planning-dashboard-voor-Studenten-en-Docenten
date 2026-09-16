@@ -19,7 +19,7 @@
                         $feedUrl = route('calendar.feed', ['opleiding' => $opleiding, 'groep' => $groep]);
                         $webcalUrl = 'webcal://'.request()->getHttpHost().parse_url($feedUrl, PHP_URL_PATH);
                         $googleUrl = 'https://calendar.google.com/calendar/render?cid='.urlencode($feedUrl);
-                        $testurl = 'https://kontender.nl'
+                        $outlookUrl = 'https://outlook.live.com/calendar/0/addcalendar?url='.urlencode($feedUrl).'&name='.urlencode($opleiding->naam.' - '.$groep->naam);
                     @endphp
                     <div class="mb-8">
                         <p class="text-lg font-semibold text-zinc-900">
@@ -37,8 +37,8 @@
                                 <x-qr-code :data="$googleUrl" class="size-24 shrink-0" />
                             </li>
                             <li class="flex items-center justify-between gap-4 rounded-lg border border-zinc-200 bg-white p-4 shadow-sm">
-                                <a href="{{ $testurl }}" class="font-medium text-accent hover:underline">test</a>
-                                <x-qr-code :data="$testurl" class="size-24 shrink-0" />
+                                <a href="{{ $outlookUrl }}" class="font-medium text-accent hover:underline">Subscribe (Outlook)</a>
+                                <x-qr-code :data="$outlookUrl" class="size-24 shrink-0" />
                             </li>
                             <li class="rounded-lg border border-zinc-200 bg-white p-4 shadow-sm">
                                 <a href="{{ $feedUrl }}" class="font-medium text-accent hover:underline">Download / subscribe (.ics link)</a>
