@@ -297,3 +297,35 @@ De controller is hernoemd naar `ExcelController` en de route gebruikt nu `ExcelC
 ### Resultaat
 
 Het naamconflict tussen de controller en de Excel-facade is opgelost. Ook de interface-compatibiliteit van de export is hersteld. De bestanden zijn statisch gecontroleerd; een daadwerkelijke browserdownload van `/excel` is nog niet uitgevoerd.
+
+## Registratie: 2026-09-14
+
+### Taak
+
+Uitleggen wat de Livewire-fout over meerdere root-elementen in de component `search-users` betekent.
+
+### Prompt
+
+```text
+wat betekent de fout `Livewire only supports one HTML element per component. Multiple root elements detected for component: [search-users]`
+```
+
+### Outputsamenvatting
+
+De fout betekent dat een Livewire-component precies één HTML-rootelement moet hebben. Onderzoek wees uit dat `resources/views/components/search-users.blade.php` twee losse `div`-rootelementen had. Beide `div`-elementen zijn daarom onder één omhullende `div` geplaatst.
+
+### Kritische beoordeling
+
+- Was de foutoorzaak correct? Ja, de twee losse `div`-rootelementen in de Blade-view kwamen overeen met de melding over meerdere root-elementen.
+- Hoe is de oplossing gecontroleerd? De foutcontrole gaf geen fouten voor de Blade-view en `app/Livewire/SearchUsers.php`.
+- Welke fouten of tekortkomingen ontdekte ik? Geen fouten bij de controle van de betrokken bestanden.
+
+### Eigen aanpassingen
+
+- De student heeft gevraagd om de betekenis van de Livewire-fout te onderzoeken.
+- De twee bestaande `div`-elementen zijn onder één omhullende `div` geplaatst.
+- Er zijn geen andere bestanden aangepast.
+
+### Resultaat
+
+De `search-users`-component heeft nu één HTML-rootelement en voldoet daarmee aan de Livewire-voorwaarde. De foutcontrole van de Blade-view en `app/Livewire/SearchUsers.php` gaf geen fouten.
