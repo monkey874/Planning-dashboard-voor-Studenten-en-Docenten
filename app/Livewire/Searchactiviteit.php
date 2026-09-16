@@ -16,6 +16,11 @@ class Searchactiviteit extends Component
     public $selectedItem = '';
     public $result = [];
 
+    public function refreshData()
+    {
+        $this->search();
+    }
+
     public function updatedSearchText(): void
     {
         $this->search();
