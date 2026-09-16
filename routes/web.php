@@ -21,6 +21,6 @@ Route::middleware(['auth', 'verified'])->group(function () {
 });
 
 Route::get('/studentAgenda', [AgendaController::class, 'index'])->name('studentAgenda');
-Route::get('/excel', [ExcelController::class, 'index']);
+Route::get('/excel', [ExcelController::class, 'index'])->name('excel');
 
 require __DIR__ . '/settings.php';
