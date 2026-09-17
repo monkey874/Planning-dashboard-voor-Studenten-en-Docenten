@@ -14,13 +14,13 @@ class AgendaController extends Controller
     {
         $routeNames = ['studentAgenda', 'dashboard', 'home'];
         $projectionList = [
-            'studentAgenda' => ['titel', 'omschrijving', 'datum', 'starttijd', 'eindtijd', 'locatie', 'type'],
-            'dashboard' => ['titel', 'omschrijving', 'datum', 'starttijd', 'eindtijd', 'locatie', 'type', 'aangemaakt_door'],
+            'studentAgenda' => ['titel', 'omschrijving', 'starttijd', 'eindtijd', 'locatie', 'type'],
+            'dashboard' => ['titel', 'omschrijving', 'datum', 'starttijd', 'eindtijd', 'locatie', 'type', 'aangemaakt_door_naam'],
             'home' => ['titel', 'datum', 'starttijd', 'eindtijd', 'type', 'locatie'],
         ];
 
         $viewList = [
-            'studentAgenda' => 'welcome',
+            'studentAgenda' => 'studentAgenda',
             'dashboard' => 'dashboard',
             'home' => 'welcome',
 
@@ -45,8 +45,10 @@ class AgendaController extends Controller
         }
 
         $activiteiten = Activiteit::select($projection)
+            ->join('users', 'activiteiten.aangemaakt_door', '=', 'users.id')
+            ->addSelect('users.name as aangemaakt_door_naam')
             ->whereDate('datum', now())
-            ->orderby('starttijd', 'asc')
+            ->orderBy('starttijd', 'asc')
             ->get();
 
 
@@ -56,6 +58,7 @@ class AgendaController extends Controller
 
         $activiteitenStructure = new JsonStructureActiviteiten;
         $result = $activiteitenStructure->generateActiviteitenJson($Times, $activiteiten);
+
 
 
 

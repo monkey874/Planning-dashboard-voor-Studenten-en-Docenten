@@ -11,7 +11,7 @@
     'eindtijd' => 'Activiteiteindtijd',
     'locatie' => 'ActiviteitLocatie',
     'type' => 'Activiteiteindtype',
-    'aangemaakt_door' => 'ActiviteitAangemaakt door',
+    'aangemaakt_door_naam' => 'aangemaakt_door_naam',
     ];
     @endphp
 
@@ -26,10 +26,6 @@
                     <td>
                         <x-activitie-border>
                             <x-activitie-row>
-
-                                <x-kolum>
-                                    <b>tijd</b>
-                                </x-kolum>
 
                                 @foreach($projection as $fields)
                                 <x-kolum>
@@ -58,10 +54,6 @@
 
                         <x-activitie-border>
                             <x-activitie-row>
-
-                                <x-kolum>
-                                    <p>{{ $index === 0 ? ($slot['TimeSlot'] ?? $slot['TimeSlot']) : $slot['TimeSlot'] }}</p>
-                                </x-kolum>
 
                                 @foreach($projection as $field)
                                 <x-kolum>

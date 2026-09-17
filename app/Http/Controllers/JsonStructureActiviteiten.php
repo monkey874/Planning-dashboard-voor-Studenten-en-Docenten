@@ -21,12 +21,12 @@ class JsonStructureActiviteiten extends Controller
                     $slotActiviteiten[] = [
                         'ActiviteitTitel' => $activiteit->titel,
                         'ActiviteitOmschrijving' => $activiteit->omschrijving,
-                        'ActiviteitDatum' => $activiteit->datum->format('d-m-Y'),
+                        'ActiviteitDatum' => $activiteit->datum,
                         'Activiteitstarttijd' => $activiteit->starttijd,
                         'Activiteiteindtijd' => $activiteit->eindtijd,
                         'ActiviteitLocatie' => $activiteit->locatie,
                         'Activiteiteindtype' => $activiteit->type,
-                        'ActiviteitAangemaakt door' => $activiteit->aangemaakt_door,
+                        'aangemaakt_door_naam' => $activiteit->aangemaakt_door_naam,
                     ];
                 }
             }
