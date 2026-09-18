@@ -1,17 +1,28 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Livewire;
 
+
+use Livewire\Component;
 use App\Models\Activiteit;
-use DateTime;
 use App\Http\Controllers\JsonStructureActiviteiten;
+use App\Http\Controllers\timeController;
 use Illuminate\Support\Facades\Route;
-use Illuminate\Http\Request;
 use Illuminate\View\View;
 
-class AgendaController extends Controller
+class AgendaRefresh extends Component
 {
-    public function index(Request $request): View
+    public $result = [];
+    public $projection = [];
+    public $Times = [];
+    public $crudRight = [];
+
+    public function mount()
+    {
+        $this->index();
+    }
+
+    public function index()
     {
         $routeNames = ['studentAgenda', 'dashboard', 'home'];
         $projectionList = [
@@ -20,12 +31,6 @@ class AgendaController extends Controller
             'home' => ['titel', 'datum', 'starttijd', 'eindtijd', 'type', 'locatie'],
         ];
 
-        $viewList = [
-            'studentAgenda' => 'studentAgenda',
-            'dashboard' => 'dashboard',
-            'home' => 'welcome',
-
-        ];
 
         $crudSystemRight = [
             'studentAgenda' => false,
@@ -37,37 +42,40 @@ class AgendaController extends Controller
 
         for ($i = 0; $i < count($routeNames); $i++) {
             if ($routeName == $routeNames[$i]) {
-                $projection = $projectionList[$routeName] ?? null;
-                $view = '/' . $viewList[$routeName] ?? null;
-                $crudRight = $crudSystemRight[$routeName] ?? null;
+                $this->projection = $projectionList[$routeName] ?? null;
+                $this->crudRight = $crudSystemRight[$routeName] ?? null;
 
                 break;
             }
         }
-        $date = $request->input('date', now()->toDateString());
-        $activiteiten = Activiteit::select($projection)
+
+        $activiteiten = Activiteit::select($this->projection)
             ->join('users', 'activiteiten.aangemaakt_door', '=', 'users.id')
             ->addSelect('users.name as aangemaakt_door_naam')
-            ->whereDate('datum', $date ?: now())
+            ->whereDate('datum', now())
             ->orderBy('starttijd', 'asc')
             ->get();
 
 
 
         $timeController = new timeController;
-        $Times = $timeController->MakeTimeSheet();
+        $this->Times = $timeController->MakeTimeSheet();
 
         $activiteitenStructure = new JsonStructureActiviteiten;
-        $result = $activiteitenStructure->generateActiviteitenJson($Times, $activiteiten);
+        $result = $activiteitenStructure->generateActiviteitenJson($this->Times, $activiteiten);
+        $this->result = $result;
+    }
 
 
 
+    public function render()
+    {
+        return view('livewire.agenda-refresh', [
+            'result' => $this->result,
+            'projection' => $this->projection,
+            'Times' => $this->Times,
+            'crudRight' => $this->crudRight,
 
-        if (isset($projection, $result, $Times, $crudRight, $view)) {
-
-            return view($view, compact('projection', 'result', 'Times', 'crudRight'));
-        } else {
-            abort(404);
-        }
+        ]);
     }
 }
