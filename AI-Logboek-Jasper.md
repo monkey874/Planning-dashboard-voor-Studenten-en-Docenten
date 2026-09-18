@@ -1,35 +1,24 @@
-AI‑Logboek — Jasper
-📅 Datum
-2026‑09‑16
+# AI-logboek
 
-🎯 Taak
-Uitzoeken hoe ik roles & permissions moet toevoegen aan ons Laravel‑project en waar elke stap moet worden uitgevoerd.
+## 2026-09-18
 
-💬 Prompt
-“ik heb een pagina gevonden om roles en permissions toe te voegen aan ons laravel project. kan je mij door het process nemen en laten weten waar ik dit toe moet voegen”
+### Taak
+De gebruikersrollen en permissies voor docenten en superbeheerder vastleggen, en daarna de minimale activiteiten-CRUD implementeren.
 
-📄 Outputsamenvatting
-AI gaf een volledige stap‑voor‑stap uitleg over het installeren, configureren en toepassen van spatie/laravel-permission, inclusief waar elke codewijziging moet worden geplaatst binnen het Laravel‑project.
+### Prompt
+Maak in Laravel een permissiesysteem met rollen voor student, docent en superbeheerder. Docenten mogen activiteiten aanmaken, wijzigen en verwijderen. Superbeheerders mogen docentenrollen toewijzen en verwijderen, en mogen ook activiteiten beheren.
 
-🔍 Kritische beoordeling
-De uitleg is correct en volgt de moderne Laravel‑structuur (Laravel 11/12).
+### Outputsamenvatting
+AI genereerde een passende Spatie Permission-opzet met rollen, permissies en tests om de rechten te controleren.
 
-Ik begrijp hoe de trait, middleware en seeder werken.
+### Kritische beoordeling
+De oplossing was in grote lijnen correct. Ik begreep de structuur van de roles en permissions, maar ik moest zelf controleren of de permissies een goede match waren met de projectvereisten. De belangrijkste tekortkoming was dat ik de daadwerkelijke activiteit-CRUD nog niet had: de routes en model moesten nog echt worden toegevoegd.
 
-Onderdelen die ik extra moet controleren:
+### Eigen aanpassingen
+- Rollen en permissies beperkt tot de gevraagde scope.
+- Docenten kregen volledige activiteitenrechten.
+- Superbeheerders kregen de docentrol/rolverwijderingsrechten.
+- De test werd aangepast zodat alleen deze scope werd gecontroleerd.
 
-of bootstrap/app.php middleware‑aliasing correct staat
-
-of SQLite alle migrations ondersteunt
-
-Geen fouten gevonden, maar ik moet zelf testen of permissies goed worden toegepast in routes en Blade.
-
-🛠️ Eigen aanpassingen
-Ik moet zelf bepalen welke permissies mijn project nodig heeft.
-
-Ik moet zelf de seeder uitbreiden met onze eigen rollen (docent, superbeheerder).
-
-Ik moet zelf de routes beveiligen op basis van onze requirements.
-
-📌 Resultaat
-Ik weet nu precies hoe ik roles & permissions moet implementeren in ons Laravel‑project en waar elke stap moet worden toegevoegd. Ik kan dit direct toepassen in onze codebase.
+### Resultaat
+De rol-permissie-opzet werkt en is getest. Daarna kon ik de echte activiteit-CRUD implementeren, zodat de app functioneel verdergaat volgens de opdracht.

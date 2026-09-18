@@ -49,7 +49,15 @@ class FortifyServiceProvider extends ServiceProvider
         Fortify::verifyEmailView(fn () => view('pages::auth.verify-email'));
         Fortify::twoFactorChallengeView(fn () => view('pages::auth.two-factor-challenge'));
         Fortify::confirmPasswordView(fn () => view('pages::auth.confirm-password'));
-        Fortify::registerView(fn () => view('pages::auth.register'));
+        Fortify::registerView(function () {
+            if (! auth()->check() || ! auth()->user()->hasRole('superbeheerder')) {
+                return redirect()->route('login')->withErrors([
+                    'email' => 'Je bent geen beheerder. Log in als superbeheerder om een account aan te maken.',
+                ]);
+            }
+
+            return view('pages::auth.register');
+        });
         Fortify::resetPasswordView(fn () => view('pages::auth.reset-password'));
         Fortify::requestPasswordResetLinkView(fn () => view('pages::auth.forgot-password'));
     }

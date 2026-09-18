@@ -9,26 +9,39 @@ use Spatie\Permission\PermissionRegistrar;
 
 class PermissionSeeder extends Seeder
 {
-    public function run()
+    public function run(): void
     {
         app(PermissionRegistrar::class)->forgetCachedPermissions();
 
-        // Permissions
         foreach ([
             'view activities',
             'create activities',
             'edit activities',
             'delete activities',
-            'manage users'
+            'manage users',
+            'assign docent role',
+            'remove docent role',
         ] as $name) {
             Permission::findOrCreate($name);
         }
 
-        // Roles
         $docent = Role::findOrCreate('docent');
-        $docent->givePermissionTo(['view activities', 'create activities', 'edit activities']);
+        $docent->givePermissionTo([
+            'view activities',
+            'create activities',
+            'edit activities',
+            'delete activities',
+        ]);
 
         $superbeheerder = Role::findOrCreate('superbeheerder');
-        $superbeheerder->givePermissionTo(Permission::all());
+        $superbeheerder->givePermissionTo([
+            'view activities',
+            'create activities',
+            'edit activities',
+            'delete activities',
+            'manage users',
+            'assign docent role',
+            'remove docent role',
+        ]);
     }
 }

@@ -60,4 +60,22 @@ class User extends Authenticatable implements PasskeyUser
             ? Str::substr($initials, 0, 1).Str::substr($initials, -1)
             : $initials;
     }
+
+    protected static function booted(): void
+    {
+        static::created(function (self $user): void {
+            if (! $user->roles()->exists()) {
+                $user->assignRole('docent');
+            }
+        });
+    }
+
+    public function assignRoleWithDocentFallback(string $role): void
+    {
+        $this->assignRole($role);
+
+        if ($role === 'superbeheerder' && ! $this->hasRole('docent')) {
+            $this->assignRole('docent');
+        }
+    }
 }
