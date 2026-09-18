@@ -1,32 +1,6 @@
-<div wire:poll.2s="refreshData">
-    <div class="flex flex-row justify-center w-full p-4 m-4 items-center">
-        <div class="flex flex-row p-3">
+@props(['projection', 'result', 'Times', 'crudRight'])
 
-            <input type="text"
-                class="p-2  flex flex-row justify-center w-96 focus:outline-none h-12 rounded-l-md border"
-                wire:model.live="searchText"
-                placeholder="zoek naar een activiteit">
-            <div class="flex justify-center items-center h-12 w-12 rounded-r-md  text-black-500 border ">
-                <x-hugeicons-search-01 />
-            </div>
-        </div>
-        <div class=" flex flex-row p-3">
-            <form action="{{ route('home') }}" method="Get">
-                <div class="h-12 w-full rounded-md text-black-500 border flex justify-center m-3">
-                    <input
-                        type="date"
-                        name="date"
-                        id="date"
-                        onchange="this.form.submit()">
-                </div>
-            </form>
-        </div>
-
-
-    </div>
-    @props(['projection', 'result', 'Times', 'crudRight'])
-
-    @php
+@php
     $activityFields = [
     'titel' => 'ActiviteitTitel',
     'omschrijving' => 'ActiviteitOmschrijving',
@@ -37,9 +11,9 @@
     'type' => 'Activiteiteindtype',
     'aangemaakt_door_naam' => 'aangemaakt_door_naam',
     ];
-    @endphp
+@endphp
 
-    <div class="p-0 m-0">
+<div wire:poll.2s="index" class="p-0 m-0">
         <table class="w-full h-full">
             <thead>
                 <tr>
@@ -102,5 +76,4 @@
                 @endforeach
             </tbody>
         </table>
-    </div>
 </div>

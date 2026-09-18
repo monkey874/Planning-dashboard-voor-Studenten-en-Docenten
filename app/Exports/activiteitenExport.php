@@ -24,6 +24,6 @@ class activiteitenExport implements FromCollection, WithHeadings
 
     public function headings(): array
     {
-        return ['id', 'titel', 'omschrijving', 'datum', 'starttijd', 'eindtijd', 'locatie', 'type'];
+        return ['id', 'titel', 'omschrijving', 'datum', 'starttijd', 'eindtijd', 'locatie', 'type', 'aangemaakt_door', 'created_at', 'updated_at'];
     }
 }
