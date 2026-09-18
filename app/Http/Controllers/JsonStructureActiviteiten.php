@@ -21,7 +21,9 @@ class JsonStructureActiviteiten extends Controller
                     $slotActiviteiten[] = [
                         'ActiviteitTitel' => $activiteit->titel,
                         'ActiviteitOmschrijving' => $activiteit->omschrijving,
-                        'ActiviteitDatum' => $activiteit->datum,
+                        'ActiviteitDatum' => $activiteit->datum
+                            ? ($activiteit->datum)->format('d-m-Y')
+                            : null,
                         'Activiteitstarttijd' => $activiteit->starttijd,
                         'Activiteiteindtijd' => $activiteit->eindtijd,
                         'ActiviteitLocatie' => $activiteit->locatie,
