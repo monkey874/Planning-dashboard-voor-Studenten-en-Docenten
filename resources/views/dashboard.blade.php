@@ -1,5 +1,7 @@
 <x-layouts::app :title="__('Dashboard')">
-    <x-agenda :projection="$projection" :result="$result" :Times="$Times" :crudRight="$crudRight">
-
-    </x-agenda>
+    <livewire:planning
+        :projection="$projection"
+        :result="$result"
+        :Times="$Times"
+        :crud-right="$crudRight"></livewire:planning>
 </x-layouts::app>
