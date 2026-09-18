@@ -23,22 +23,43 @@
                     @endphp
                     <div class="mb-8">
                         <p class="text-lg font-semibold text-zinc-900">
-                            Subscribe to the calendar for {{ $opleiding->naam }} - {{ $groep->naam }}
+                            abonneer tot the calendar  {{ $opleiding->naam }} - {{ $groep->naam }}
                         </p>
                     </div>
                     <div>
                         <ul class="space-y-4">
-                            <li class="flex items-center justify-between gap-4 rounded-lg border border-zinc-200 bg-white p-4 shadow-sm">
-                                <a href="{{ $webcalUrl }}" class="font-medium text-accent hover:underline">Subscribe (Apple Calendar)</a>
-                                <x-qr-code :data="$webcalUrl" class="size-24 shrink-0" />
+                            <li class="flex items-start justify-between gap-4 rounded-lg border border-zinc-200 bg-white p-4 shadow-sm">
+                                <a href="{{ $webcalUrl }}" class="pt-1.5 font-medium text-accent hover:underline">abonneer (Apple Calendar)</a>
+                                <details class="shrink-0">
+                                    <summary class="cursor-pointer list-none select-none rounded-md border border-zinc-300 px-3 py-1.5 text-sm font-medium text-zinc-700 hover:bg-zinc-50">
+                                        Gebruik telefoon
+                                    </summary>
+                                    <div class="mt-3 flex justify-center">
+                                        <x-qr-code :data="$webcalUrl" class="size-32" />
+                                    </div>
+                                </details>
                             </li>
-                            <li class="flex items-center justify-between gap-4 rounded-lg border border-zinc-200 bg-white p-4 shadow-sm">
-                                <a href="{{ $googleUrl }}" class="font-medium text-accent hover:underline">Subscribe (Google Calendar)</a>
-                                <x-qr-code :data="$googleUrl" class="size-24 shrink-0" />
+                            <li class="flex items-start justify-between gap-4 rounded-lg border border-zinc-200 bg-white p-4 shadow-sm">
+                                <a href="{{ $googleUrl }}" class="pt-1.5 font-medium text-accent hover:underline">aboneer (Google Calendar)</a>
+                                <details class="shrink-0">
+                                    <summary class="cursor-pointer list-none select-none rounded-md border border-zinc-300 px-3 py-1.5 text-sm font-medium text-zinc-700 hover:bg-zinc-50">
+                                        Gebruik telefoon
+                                    </summary>
+                                    <div class="mt-3 flex justify-center">
+                                        <x-qr-code :data="$googleUrl" class="size-32" />
+                                    </div>
+                                </details>
                             </li>
-                            <li class="flex items-center justify-between gap-4 rounded-lg border border-zinc-200 bg-white p-4 shadow-sm">
-                                <a href="{{ $outlookUrl }}" class="font-medium text-accent hover:underline">Subscribe (Outlook)</a>
-                                <x-qr-code :data="$outlookUrl" class="size-24 shrink-0" />
+                            <li class="flex items-start justify-between gap-4 rounded-lg border border-zinc-200 bg-white p-4 shadow-sm">
+                                <a href="{{ $outlookUrl }}" class="pt-1.5 font-medium text-accent hover:underline">abonneer (Outlook)</a>
+                                <details class="shrink-0">
+                                    <summary class="cursor-pointer list-none select-none rounded-md border border-zinc-300 px-3 py-1.5 text-sm font-medium text-zinc-700 hover:bg-zinc-50">
+                                        Gebruik telefoon
+                                    </summary>
+                                    <div class="mt-3 flex justify-center">
+                                        <x-qr-code :data="$outlookUrl" class="size-32" />
+                                    </div>
+                                </details>
                             </li>
                             <li class="rounded-lg border border-zinc-200 bg-white p-4 shadow-sm">
                                 <a href="{{ $feedUrl }}" class="font-medium text-accent hover:underline">Download / subscribe (.ics link)</a>
