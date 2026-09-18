@@ -1,8 +1,6 @@
-<head>
-    @vite(['resources/css/app.css', 'resources/js/app.js'])
-    @props(['projection', 'result','Times', 'crudRight' ])
+@props(['projection', 'result', 'Times', 'crudRight'])
 
-    @php
+@php
     $activityFields = [
     'titel' => 'ActiviteitTitel',
     'omschrijving' => 'ActiviteitOmschrijving',
@@ -13,13 +11,9 @@
     'type' => 'Activiteiteindtype',
     'aangemaakt_door_naam' => 'aangemaakt_door_naam',
     ];
-    @endphp
+@endphp
 
-</head>
-
-
-<body class="p-0 m-0">
-    <diV>
+<div wire:poll.2s="index" class="p-0 m-0">
         <table class="w-full h-full">
             <thead>
                 <tr>
@@ -82,5 +76,4 @@
                 @endforeach
             </tbody>
         </table>
-    </div>
-</body>
+</div>
