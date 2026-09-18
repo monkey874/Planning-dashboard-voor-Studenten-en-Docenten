@@ -6,11 +6,12 @@ use App\Models\Activiteit;
 use DateTime;
 use App\Http\Controllers\JsonStructureActiviteiten;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Http\Request;
 use Illuminate\View\View;
 
 class AgendaController extends Controller
 {
-    public function index(): View
+    public function index(Request $request): View
     {
         $routeNames = ['studentAgenda', 'dashboard', 'home'];
         $projectionList = [
@@ -43,11 +44,11 @@ class AgendaController extends Controller
                 break;
             }
         }
-
+        $date = $request->input('date', now()->toDateString());
         $activiteiten = Activiteit::select($projection)
             ->join('users', 'activiteiten.aangemaakt_door', '=', 'users.id')
             ->addSelect('users.name as aangemaakt_door_naam')
-            ->whereDate('datum', now())
+            ->whereDate('datum', $date ?: now())
             ->orderBy('starttijd', 'asc')
             ->get();
 
