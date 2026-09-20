@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}" class="dark">
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
     <head>
         @include('partials.head')
     </head>
@@ -14,6 +14,22 @@
                 <flux:sidebar.group :heading="__('Platform')" class="grid">
                     <flux:sidebar.item icon="home" :href="route('dashboard')" :current="request()->routeIs('dashboard')" wire:navigate>
                         {{ __('Dashboard') }}
+                    </flux:sidebar.item>
+                    @if(auth()->user()->hasRole('superbeheerder'))
+                        <flux:sidebar.item icon="users" :href="route('users.index')" :current="request()->routeIs('users.*')" wire:navigate>
+                            Gebruikersbeheer
+                        </flux:sidebar.item>
+                        <flux:sidebar.item icon="user-plus" :href="route('register')" :current="request()->routeIs('register')" wire:navigate>
+                            Account registreren
+                        </flux:sidebar.item>
+                    @endif
+                    <flux:sidebar.item
+                        icon="moon"
+                        href="#"
+                        x-data
+                        x-on:click.prevent="$flux.appearance = $flux.appearance === 'dark' ? 'light' : 'dark'"
+                    >
+                        Dark mode wisselen
                     </flux:sidebar.item>
                 </flux:sidebar.group>
             </flux:sidebar.nav>

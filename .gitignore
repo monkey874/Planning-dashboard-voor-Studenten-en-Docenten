@@ -6,6 +6,8 @@
 /public/storage
 /storage/*.key
 /storage/pail
+/Ai logboek rick/ 
+/agents/
 /vendor
 .env
 .env.backup
@@ -22,3 +24,4 @@ yarn-error.log
 /.nova
 /.vscode
 /.zed
+Ai-log-klos-markus.txt

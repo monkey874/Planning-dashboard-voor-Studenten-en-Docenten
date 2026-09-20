@@ -15,11 +15,16 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // User::factory(10)->create();
+        $this->call(PermissionSeeder::class);
 
-        User::factory()->create([
-            'name' => 'Test User',
-            'email' => 'test@example.com',
-        ]);
+        $superbeheerder = User::updateOrCreate(
+            ['email' => 'jasper@gmail.com'],
+            [
+                'name' => 'Jasper',
+                'password' => bcrypt('12345asdf'),
+            ],
+        );
+
+        $superbeheerder->syncRoles(['superbeheerder', 'docent']);
     }
 }
