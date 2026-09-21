@@ -61,6 +61,12 @@ select:focus[data-flux-control] {
     @apply outline-hidden ring-2 ring-accent ring-offset-2 ring-offset-accent-foreground;
 }
 
+.qr-code svg {
+    width: 100%;
+    height: 100%;
+    display: block;
+}
+
 /* \[:where(&)\]:size-4 {
     @apply size-4;
 } */
