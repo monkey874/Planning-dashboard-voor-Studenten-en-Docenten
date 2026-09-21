@@ -13,11 +13,16 @@
                 <flux:navbar.item icon="layout-grid" :href="route('dashboard')" :current="request()->routeIs('dashboard')" wire:navigate>
                     {{ __('Dashboard') }}
                 </flux:navbar.item>
+                @can('create activities')
+                    <flux:navbar.item icon="calendar-days" :href="route('activities.index')" :current="request()->routeIs('activities.*')" wire:navigate>
+                        Activiteiten beheren
+                    </flux:navbar.item>
+                @endcan
                 @if(auth()->user()->hasRole('superbeheerder'))
                     <flux:navbar.item icon="users" :href="route('users.index')" :current="request()->routeIs('users.*')" wire:navigate>
                         Gebruikersbeheer
                     </flux:navbar.item>
-                    <flux:navbar.item icon="user-plus" :href="route('register')" :current="request()->routeIs('register')" wire:navigate>
+                    <flux:navbar.item icon="user-plus" :href="route('users.create')" :current="request()->routeIs('users.create')">
                         Account registreren
                     </flux:navbar.item>
                 @endif
@@ -72,6 +77,11 @@
                     <flux:sidebar.item icon="layout-grid" :href="route('dashboard')" :current="request()->routeIs('dashboard')" wire:navigate>
                         {{ __('Dashboard')  }}
                     </flux:sidebar.item>
+                    @can('create activities')
+                        <flux:sidebar.item icon="calendar-days" :href="route('activities.index')" :current="request()->routeIs('activities.*')" wire:navigate>
+                            Activiteiten beheren
+                        </flux:sidebar.item>
+                    @endcan
                     @if(auth()->user()->hasRole('superbeheerder'))
                         <flux:sidebar.item icon="users" :href="route('users.index')" :current="request()->routeIs('users.*')" wire:navigate>
                             Gebruikersbeheer
@@ -86,7 +96,7 @@
                         x-data
                         x-on:click.prevent="$flux.appearance = $flux.appearance === 'dark' ? 'light' : 'dark'"
                     >
-                        Dark mode wisselen
+                        Dark/light mode
                     </flux:sidebar.item>
                 </flux:sidebar.group>
             </flux:sidebar.nav>

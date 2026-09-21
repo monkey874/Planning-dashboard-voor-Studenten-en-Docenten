@@ -65,6 +65,19 @@ class PlanningDashboardTest extends TestCase
         ]);
     }
 
+    public function test_superbeheerder_can_open_account_registration_page(): void
+    {
+        $this->seed(\Database\Seeders\PermissionSeeder::class);
+
+        $user = User::factory()->create();
+        $user->syncRoles(['superbeheerder', 'docent']);
+
+        $response = $this->actingAs($user)->get(route('users.create'));
+
+        $response->assertOk();
+        $response->assertSee('Account registreren');
+    }
+
     public function test_superbeheerder_can_have_multiple_roles(): void
     {
         $this->seed(\Database\Seeders\PermissionSeeder::class);

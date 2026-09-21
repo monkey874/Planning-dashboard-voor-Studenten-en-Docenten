@@ -10,6 +10,19 @@ class ActivityCrudTest extends TestCase
 {
     use RefreshDatabase;
 
+    public function test_docent_can_open_activity_management(): void
+    {
+        $this->seed(\Database\Seeders\PermissionSeeder::class);
+
+        $user = User::factory()->create();
+        $user->assignRole('docent');
+
+        $response = $this->actingAs($user)->get(route('activities.index'));
+
+        $response->assertOk();
+        $response->assertSee('Nieuwe activiteit');
+    }
+
     public function test_docent_can_create_an_activity(): void
     {
         $this->seed(\Database\Seeders\PermissionSeeder::class);

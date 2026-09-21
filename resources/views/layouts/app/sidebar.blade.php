@@ -15,11 +15,16 @@
                     <flux:sidebar.item icon="home" :href="route('dashboard')" :current="request()->routeIs('dashboard')" wire:navigate>
                         {{ __('Dashboard') }}
                     </flux:sidebar.item>
+                    @can('create activities')
+                        <flux:sidebar.item icon="calendar-days" :href="route('activities.index')" :current="request()->routeIs('activities.*')" wire:navigate>
+                            Activiteiten beheren
+                        </flux:sidebar.item>
+                    @endcan
                     @if(auth()->user()->hasRole('superbeheerder'))
                         <flux:sidebar.item icon="users" :href="route('users.index')" :current="request()->routeIs('users.*')" wire:navigate>
                             Gebruikersbeheer
                         </flux:sidebar.item>
-                        <flux:sidebar.item icon="user-plus" :href="route('register')" :current="request()->routeIs('register')" wire:navigate>
+                        <flux:sidebar.item icon="user-plus" :href="route('users.create')" :current="request()->routeIs('users.create')">
                             Account registreren
                         </flux:sidebar.item>
                     @endif
@@ -29,7 +34,7 @@
                         x-data
                         x-on:click.prevent="$flux.appearance = $flux.appearance === 'dark' ? 'light' : 'dark'"
                     >
-                        Dark mode wisselen
+                        Dark/light mode
                     </flux:sidebar.item>
                 </flux:sidebar.group>
             </flux:sidebar.nav>
