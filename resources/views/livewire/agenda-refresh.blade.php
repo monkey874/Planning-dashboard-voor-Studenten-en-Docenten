@@ -59,10 +59,10 @@
                                 <x-kolum>
                                     <div class="gap-4 flex flex-row">
                                         <x-icon-border>
-                                            <x-hugeicons-edit-01 class="w-6 h-6 text-black-500" />
+                                            <flux:icon.pencil class="w-6 h-6 text-black-500" />
                                         </x-icon-border>
                                         <x-icon-border>
-                                            <x-heroicon-o-trash class="w-6 h-6 text-black-500" />
+                                            <flux:icon.trash class="w-6 h-6 text-black-500" />
                                         </x-icon-border>
                                     </div>
                                 </x-kolum>

@@ -7,7 +7,7 @@
                 wire:model.live="searchText"
                 placeholder="zoek naar een activiteit">
             <div class="flex justify-center items-center h-12 w-12 rounded-r-md  text-black-500 border ">
-                <x-hugeicons-search-01 />
+                <flux:icon.magnifying-glass class="size-5" />
             </div>
         </div>
         <div class=" flex flex-row p-3">
@@ -85,10 +85,10 @@
                                 <x-kolum>
                                     <div class="gap-4 flex flex-row">
                                         <x-icon-border>
-                                            <x-hugeicons-edit-01 class="w-6 h-6 text-black-500" />
+                                            <flux:icon.pencil class="w-6 h-6 text-black-500" />
                                         </x-icon-border>
                                         <x-icon-border>
-                                            <x-heroicon-o-trash class="w-6 h-6 text-black-500" />
+                                            <flux:icon.trash class="w-6 h-6 text-black-500" />
                                         </x-icon-border>
                                     </div>
                                 </x-kolum>
